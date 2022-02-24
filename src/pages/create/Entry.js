@@ -17,7 +17,6 @@ export default function Entry() {
     const [high, setHigh] = useState([])
     const [medium, setMedium] = useState([])
     const [low, setLow] = useState([])
-    const [na, setNA] = useState([])
     
     const [formError, setFormError] = useState(null)
     const [success, setSuccess] = useState(false)
@@ -42,7 +41,6 @@ export default function Entry() {
             setHigh(rankingDoc.high)
             setMedium(rankingDoc.medium)
             setLow(rankingDoc.low)
-            setNA(rankingDoc.na)
         }
     },[document, rankingDoc])
     
@@ -89,10 +87,8 @@ export default function Entry() {
         }, 3000)
     }
 
-
   return (
     <div className="container-xxl">
-        
         <form className="mt-5" onSubmit={(e) => handleSubmit(e)}>
             <div className="row">
                 <div className="col-md-5">
