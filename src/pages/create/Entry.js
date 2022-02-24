@@ -4,12 +4,17 @@ import Select from 'react-select'
 import { useEffect, useState } from 'react'
 
 import { useDocument } from '../../hooks/useDocument'
+import { useFirestore } from '../../hooks/useFirestore'
+
 export default function Entry() {
-    const { document, error } = useDocument("award-info", "3RWf2J0uS8BX4MIsPU87")
+    const { document } = useDocument("award-info", "3RWf2J0uS8BX4MIsPU87")
+    const { addDocument } = useFirestore("award-entry")
     const [awards, setAwards] = useState([])
     const [judges, setJudges] = useState([])
     const [years, setYears] = useState([])
-
+    
+    const [formError, setFormError] = useState(null)
+    const [success, setSuccess] = useState(false)
     const [award, setAward] = useState('')
     const [name, setName] = useState('')
     const [year, setYear] = useState('')
@@ -28,16 +33,45 @@ export default function Entry() {
             }))
         }
     },[document])
-    console.log(awards, judges, years)
     
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        
+        setFormError(null)
+
+        if (!award) {
+            setFormError('Please select an award')
+            return
+        }
+        if (!name) {
+            setFormError('Please select an adjudicator')
+            return
+        }
+        if (!year) {
+            setFormError('Please select a year')
+            return
+        }
+        if (!pair) {
+            setFormError('Please select whether they worked in pairs or not')
+            return
+        }
+        const entry = {
+            award: award.value,
+            difficulty: 0,
+            name: name.value,
+            year: year.value,
+            pair: pair.value
+        }
+        await addDocument(entry)
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+        }, 3000)
     }
 
 
   return (
     <div className="container-xxl">
+        
         <form className="mt-5" onSubmit={(e) => handleSubmit(e)}>
             <div className="row">
                 <div className="col-md-5">
@@ -80,7 +114,9 @@ export default function Entry() {
                     </label>
                 </div>
             </div>
-            <button className="btn btn-warning">Add New Entry</button>
+            <button className="btn btn-warning mb-5">Add New Entry</button>
+            {formError && <p className="lead fw-bold text-danger">{formError}</p>}
+            {success && <p className="lead fw-bold text-success">Success</p>}
         </form>
     </div>
   )
