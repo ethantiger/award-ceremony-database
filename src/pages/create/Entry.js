@@ -12,6 +12,12 @@ export default function Entry() {
     const [awards, setAwards] = useState([])
     const [judges, setJudges] = useState([])
     const [years, setYears] = useState([])
+
+    const { document: rankingDoc } = useDocument("award-difficulty", 'hoxAT5NRUuol306P6CcV')
+    const [high, setHigh] = useState([])
+    const [medium, setMedium] = useState([])
+    const [low, setLow] = useState([])
+    const [na, setNA] = useState([])
     
     const [formError, setFormError] = useState(null)
     const [success, setSuccess] = useState(false)
@@ -32,7 +38,13 @@ export default function Entry() {
                 return {value: year, label: year}
             }))
         }
-    },[document])
+        if (rankingDoc) {
+            setHigh(rankingDoc.high)
+            setMedium(rankingDoc.medium)
+            setLow(rankingDoc.low)
+            setNA(rankingDoc.na)
+        }
+    },[document, rankingDoc])
     
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -54,9 +66,18 @@ export default function Entry() {
             setFormError('Please select whether they worked in pairs or not')
             return
         }
+
+        let difficulty = 0
+        if (high && high.includes(award.value)) {
+            difficulty = 3
+        }else if (medium && medium.includes(award.value)) {
+            difficulty = 2
+        } else if (low && low.includes(award.value)) {
+            difficulty = 1
+        }
         const entry = {
             award: award.value,
-            difficulty: 0,
+            difficulty,
             name: name.value,
             year: year.value,
             pair: pair.value
