@@ -1,18 +1,33 @@
 import { useEffect, useState } from "react"
 import { useDocument } from '../../hooks/useDocument'
 import { useFirestore } from '../../hooks/useFirestore'
+import Select from 'react-select'
 
 export default function Award() {
     const { document } = useDocument("award-info", "3RWf2J0uS8BX4MIsPU87")
     const { updateDocument } = useFirestore('award-info')
+
+    const { document: diffDoc } = useDocument("award-difficulty", "hoxAT5NRUuol306P6CcV")
+    const { updateDocument: updateDifficulty } = useFirestore('award-difficulty')
     const [award, setAward] = useState("")
+    const [difficulty, setDifficulty] = useState(0)
     const [success, setSuccess] = useState(false)
     const [formError, setFormError] = useState(null)
     const [allAwards, setAllAwards] = useState([])
 
+    const options = [
+        {value: 1, label: 'Low'},
+        {value: 2, label: 'Medium'},
+        {value: 3, label: 'High'}
+    ]
+
+
     useEffect(() => {
         if (document) {
             setAllAwards(document.awards)
+        }
+        if (diffDoc) {
+            
         }
     },[document])
 
@@ -36,6 +51,10 @@ export default function Award() {
             ]
         }
 
+        let diffUpdates = {
+            
+        }
+
         await updateDocument("3RWf2J0uS8BX4MIsPU87", updates)
 
         setSuccess(true)
@@ -53,6 +72,17 @@ export default function Award() {
                         <div className="input-group">
                             <span className="input-group-text">Award Name</span>
                             <input className="form-control" type="text" onChange={(e) => setAward(e.target.value)} value={award} />
+                        </div>
+                    </label>
+                </div>
+                <div className="col-md-2">
+                    <label>
+                        <div>
+                        <span>Difficulty</span>
+                            <Select
+                                onChange={(option) => setDifficulty(option)}
+                                options={options}
+                            />
                         </div>
                     </label>
                 </div>
