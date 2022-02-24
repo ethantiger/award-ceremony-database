@@ -7,7 +7,7 @@ export default function Navbar() {
         <div className="navbar navbar-expand-md navbar-light bg-warning">
             <div className="container-xxl">
                 <div className="navbar-brand">
-                    <Link className="nav-link text-dark fw-bold" to="/">English Awards Database</Link>
+                    <Link className="nav-link text-dark fw-bold" to="/"><i class="bi bi-bar-chart-fill"></i> English Awards Database</Link>
                 </div>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
                     <span className="navbar-toggler-icon"></span>
@@ -26,6 +26,9 @@ export default function Navbar() {
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/winners">Past Winners</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/create">Create <i class="bi bi-plus-circle-fill"></i></NavLink>
                         </li>
                     </ul>
                 </div>

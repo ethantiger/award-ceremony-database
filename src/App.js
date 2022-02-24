@@ -26,7 +26,6 @@ function App() {
           <Route path="/winners" element={<PastWinners />} />
         </Routes>
       </BrowserRouter>
-      
     </div>
   );
 }
