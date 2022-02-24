@@ -4,10 +4,11 @@ import './Navbar.css'
 
 export default function Navbar() {
     return (
+        <>
         <div className="navbar navbar-expand-md navbar-light bg-warning">
             <div className="container-xxl">
                 <div className="navbar-brand">
-                    <Link className="nav-link text-dark fw-bold" to="/"><i class="bi bi-bar-chart-fill"></i> English Awards Database</Link>
+                    <Link className="nav-link text-dark fw-bold" to="/"><i className="bi bi-bar-chart-fill"></i> English Awards Database</Link>
                 </div>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
                     <span className="navbar-toggler-icon"></span>
@@ -27,12 +28,30 @@ export default function Navbar() {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/winners">Past Winners</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className="nav-link" to="/create">Create <i class="bi bi-plus-circle-fill"></i></NavLink>
+                        <li className="nav-item d-md-none">
+                        <a href="#sidebar" className="nav-link" data-bs-toggle="offcanvas" role="button">Create <i className="bi bi-plus-circle-fill"></i></a>
+                        </li>
+                        <li className="nav-item ms-2 d-none d-md-inline">
+                            <a href="#sidebar" className="btn btn-dark text-light" data-bs-toggle="offcanvas" role="button">Create <i className="bi bi-plus-circle-fill"></i></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
+        <div className="offcanvas offcanvas-start" tabIndex="-1" id="sidebar">
+            <div className="offcanvas-header">
+                <div className="offcanvas-title">
+                    <p className="display-6">Create New</p>
+                </div>
+            </div>
+            <div className="offcanvas-body text-end">
+                <Link className="nav-link text-secondary fw-bold" to="/create/entry"><i className="bi bi-file-bar-graph-fill"></i> Database Entry</Link>
+                <Link className="nav-link text-secondary fw-bold" to="/create/adjudicator"><i className="bi bi-person-fill"></i> Adjudicator</Link>
+                <Link className="nav-link text-secondary fw-bold" to="/create/award"><i className="bi bi-award-fill"></i> Award</Link>
+                <Link className="nav-link text-secondary fw-bold" to="/create/year"><i className="bi bi-calendar-fill"></i> Year</Link>
+            </div>
+            
+        </div>
+        </>
     )
 }

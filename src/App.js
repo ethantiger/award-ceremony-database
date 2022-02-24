@@ -7,6 +7,7 @@ import Database from './pages/database/Database';
 import AwardsJudged from './pages/awardsJudged/AwardsJudged'
 import Difficulty from './pages/difficulty/Difficulty'
 import PastWinners from './pages/pastWinners/PastWinners'
+import Entry from './pages/create/Entry'
 
 // styles
 import './App.css';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/awards-judged" element={<AwardsJudged />} />
           <Route path="/difficulty" element={<Difficulty />} />
           <Route path="/winners" element={<PastWinners />} />
+          <Route path="/create/entry" element={<Entry />} />
         </Routes>
       </BrowserRouter>
     </div>
