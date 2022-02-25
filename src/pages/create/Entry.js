@@ -65,13 +65,13 @@ export default function Entry() {
             return
         }
 
-        let difficulty = 0
+        let difficulty = 'NA'
         if (high && high.includes(award.value)) {
-            difficulty = 3
+            difficulty = 'High'
         }else if (medium && medium.includes(award.value)) {
-            difficulty = 2
+            difficulty = 'Medium'
         } else if (low && low.includes(award.value)) {
-            difficulty = 1
+            difficulty = 'Low'
         }
         const entry = {
             award: award.value,

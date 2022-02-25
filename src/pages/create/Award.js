@@ -17,10 +17,10 @@ export default function Award() {
     const [allDifficulty, setAllDifficulty] = useState(null)
 
     const options = [
-        {value: 0, label: 'NA'},
-        {value: 1, label: 'Low'},
-        {value: 2, label: 'Medium'},
-        {value: 3, label: 'High'}
+        {value: 'NA', label: 'NA'},
+        {value: 'Low', label: 'Low'},
+        {value: 'Medium', label: 'Medium'},
+        {value: 'High', label: 'High'}
     ]
 
 
@@ -32,7 +32,6 @@ export default function Award() {
             setAllDifficulty(diffDoc)
         }
     },[document, diffDoc])
-    console.log(allDifficulty)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -59,28 +58,28 @@ export default function Award() {
         }
 
         let diffUpdates = null
-        if (difficulty === 0) {
+        if (difficulty === 'NA') {
             diffUpdates = {
                 na: [
                     ...allDifficulty.na,
                     award
                 ]
             }
-        } else if (difficulty === 1) {
+        } else if (difficulty === 'Low') {
             diffUpdates = {
                 low: [
                     ...allDifficulty.low,
                     award
                 ]
             }
-        } else if (difficulty === 2) {
+        } else if (difficulty === 'Medium') {
             diffUpdates = {
                 medium: [
                     ...allDifficulty.medium,
                     award
                 ]
             }
-        } else if (difficulty === 3) {
+        } else if (difficulty === 'High') {
             diffUpdates = {
                 high: [
                     ...allDifficulty.high,
