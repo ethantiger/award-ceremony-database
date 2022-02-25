@@ -14,7 +14,7 @@ export default function Database() {
     const [award, setAward] = useState('')
     const [name, setName] = useState('')
     const [year, setYear] = useState('')
-    const [pair, setPair] = useState(false)
+    const [pair, setPair] = useState(null)
 
     useEffect(() => {
       if (document) {
@@ -38,7 +38,7 @@ export default function Database() {
                 <span>Award</span>
                 <Select
                     onChange={(option) => setAward(option)}
-                    options={awards}
+                    options={[{value: "", label: 'All'},...awards]}
                 />
             </label>
         </div>
@@ -47,7 +47,7 @@ export default function Database() {
                 <span>Adjudicator</span>
                 <Select
                     onChange={(option) => setName(option)}
-                    options={judges}
+                    options={[{value: "", label: 'All'},...judges]}
                 />
             </label>
         </div>
@@ -56,7 +56,7 @@ export default function Database() {
                 <span>Year</span>
                 <Select
                     onChange={(option) => setYear(option)}
-                    options={years}
+                    options={[{value: "", label: 'All'},...years]}
                 />
             </label>
         </div>
@@ -64,10 +64,11 @@ export default function Database() {
             <label>
                 <span>Worked in Pair</span>
                 <Select
-                    onChange={(option) => setPair(option)}
+                    onChange={(option) => setPair(option.value)}
                     options={[
-                        {value: true, label: 'True' },
-                        {value: false, label: 'False'}
+                        {value: null, label: 'All'},
+                        {value: true, label: <i className="bi bi-check"></i> },
+                        {value: false, label: <i className="bi bi-x"></i>}
                 ]} 
                 />
             </label>
@@ -89,9 +90,6 @@ export default function Database() {
             name={name} 
             year={year} 
             pair={pair} 
-            awards={awards}
-            judges={judges}
-            years={years}
           />
         </tbody>
       </table>
