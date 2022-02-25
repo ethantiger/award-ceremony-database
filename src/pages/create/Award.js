@@ -10,12 +10,14 @@ export default function Award() {
     const { document: diffDoc } = useDocument("award-difficulty", "hoxAT5NRUuol306P6CcV")
     const { updateDocument: updateDifficulty } = useFirestore('award-difficulty')
     const [award, setAward] = useState("")
-    const [difficulty, setDifficulty] = useState(0)
+    const [difficulty, setDifficulty] = useState(null)
     const [success, setSuccess] = useState(false)
     const [formError, setFormError] = useState(null)
     const [allAwards, setAllAwards] = useState([])
+    const [allDifficulty, setAllDifficulty] = useState(null)
 
     const options = [
+        {value: 0, label: 'NA'},
         {value: 1, label: 'Low'},
         {value: 2, label: 'Medium'},
         {value: 3, label: 'High'}
@@ -27,9 +29,10 @@ export default function Award() {
             setAllAwards(document.awards)
         }
         if (diffDoc) {
-            
+            setAllDifficulty(diffDoc)
         }
-    },[document])
+    },[document, diffDoc])
+    console.log(allDifficulty)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -37,6 +40,10 @@ export default function Award() {
 
         if (!award) {
             setFormError('Please fill out an award')
+            return
+        }
+        if (!difficulty && difficulty !== 0) {
+            setFormError('Please fill out a difficulty')
             return
         }
         if (allAwards && allAwards.includes(award)) {
@@ -51,11 +58,39 @@ export default function Award() {
             ]
         }
 
-        let diffUpdates = {
-            
+        let diffUpdates = null
+        if (difficulty === 0) {
+            diffUpdates = {
+                na: [
+                    ...allDifficulty.na,
+                    award
+                ]
+            }
+        } else if (difficulty === 1) {
+            diffUpdates = {
+                low: [
+                    ...allDifficulty.low,
+                    award
+                ]
+            }
+        } else if (difficulty === 2) {
+            diffUpdates = {
+                medium: [
+                    ...allDifficulty.medium,
+                    award
+                ]
+            }
+        } else if (difficulty === 3) {
+            diffUpdates = {
+                high: [
+                    ...allDifficulty.high,
+                    award
+                ]
+            }
         }
 
         await updateDocument("3RWf2J0uS8BX4MIsPU87", updates)
+        await updateDifficulty('hoxAT5NRUuol306P6CcV', diffUpdates)
 
         setSuccess(true)
         setTimeout(() => {
@@ -75,12 +110,18 @@ export default function Award() {
                         </div>
                     </label>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-3">
                     <label>
-                        <div>
-                        <span>Difficulty</span>
+                        <div className="input-group">
+                            <span className="input-group-text">Difficulty</span>
                             <Select
-                                onChange={(option) => setDifficulty(option)}
+                                styles={{
+                                    container: base => ({
+                                        ...base,
+                                        flex: 1
+                                      })
+                                }}
+                                onChange={(option) => setDifficulty(option.value)}
                                 options={options}
                             />
                         </div>
