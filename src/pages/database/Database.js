@@ -77,7 +77,7 @@ export default function Database() {
       <table className="table">
         <thead>
           <tr>
-            <th scope="col-6">Award</th>
+            <th scope="col">Award</th>
             <th scope="col">Name</th>
             <th scope="col">Year</th>
             <th scope="col">Worked in pair</th>

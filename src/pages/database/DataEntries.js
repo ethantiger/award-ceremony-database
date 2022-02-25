@@ -18,8 +18,8 @@ export default function DataEntries({award, name, year, pair}) {
       }
       if (pair !== null) {
         ref = query(ref, where('pair', '==', pair))
-        console.log(pair)
       }
+      ref = query(ref, orderBy('createdAt', 'desc'))
       
       const unsub = onSnapshot(ref, (snapshot) => {
         let results = []
