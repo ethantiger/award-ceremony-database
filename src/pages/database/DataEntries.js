@@ -31,8 +31,6 @@ export default function DataEntries({award, name, year, pair}) {
     return () => unsub()  
     },[setDocuments, award, name, year, pair])
 
-
-    
   return (
     <>
         {documents && documents.map((document) => (

@@ -20,7 +20,7 @@ export default function Difficulty() {
   return (
     <div className="mt-5 container-xxl">
       <div className="row">
-        <div className="col-6">
+        <div className="col-md-6">
           <div className="d-flex">
             <h4 className="me-2">Year: </h4>
             <Select 
@@ -50,11 +50,12 @@ export default function Difficulty() {
             </tbody>
           </table>
         </div>
-        <div className="col-6">
+        <div className="col-md-6">
           <h4>All Time</h4>
           <table className="table">
             <thead>
               <tr>
+                <th scope="col">Name</th>
                 <th scope="col"># of High Awards</th>
                 <th scope="col"># of Medium Awards</th>
                 <th scope="col"># of Low Awards</th>
