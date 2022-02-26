@@ -7,7 +7,7 @@ import RankingData from './RankingData'
 export default function Difficulty() {
   const { document } = useDocument('award-info', '3RWf2J0uS8BX4MIsPU87')
   const [years, setYears] = useState([])
-  const [year, setYear] = useState('')
+  const [curYear, setCurYear] = useState('')
 
   useEffect(() => {
     if (document) {
@@ -30,8 +30,8 @@ export default function Difficulty() {
                     flex: 1
                   })
               }}
-              onChange={(option) => setYear(option.value)}
-              options={years}
+              onChange={(option) => setCurYear(option.value)}
+              options={[{value: '', label: 'All'}, ...years]}
             />
           </div>
           <table className="table">
@@ -45,7 +45,7 @@ export default function Difficulty() {
             </thead>
             <tbody>
                 {document && document.adjudicators.map((judge) => (
-                  <RankingData key={judge} judge={judge} year={year}/>
+                  <RankingData key={judge} judge={judge} year={curYear}/>
                 ))}
             </tbody>
           </table>
@@ -61,9 +61,9 @@ export default function Difficulty() {
               </tr>
             </thead>
             <tbody>
-                {/* {document && document.adjudicators.map((judge) => (
-
-                ))} */}
+                {document && document.adjudicators.map((judge) => (
+                  <RankingData key={judge} judge={judge} />
+                ))}
             </tbody>
           </table>
         </div>
