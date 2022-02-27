@@ -1,8 +1,13 @@
 import { NavLink, Link } from "react-router-dom"
+import { useAuthContext } from "../hooks/useAuthContext"
+import { useLogout } from '../hooks/useLogout'
 
 import './Navbar.css'
 
 export default function Navbar() {
+    const { user } = useAuthContext()
+    const { logout } = useLogout()
+
     return (
         <>
         <div className="navbar navbar-expand-md navbar-light bg-warning">
@@ -28,12 +33,21 @@ export default function Navbar() {
                         <li className="nav-item d-md-none">
                             <a href="#sidebar" className="nav-link" data-bs-toggle="offcanvas" role="button">Create <i className="bi bi-plus-circle-fill"></i></a>
                         </li>
+                        {!user &&
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/login">Login</NavLink>
                         </li>
+                        }
+                        {user &&
+                        <>
                         <li className="nav-item ms-2 d-none d-md-inline">
                             <a href="#sidebar" className="btn btn-dark text-light" data-bs-toggle="offcanvas" role="button">Create <i className="bi bi-plus-circle-fill"></i></a>
                         </li>
+                        <li className="nav-item ms-2 d-none d-md-inline">
+                            <button className="btn btn-danger text-light" onClick={() => logout()}>Logout</button>
+                        </li>
+                        </>
+                        }
                     </ul>
                 </div>
             </div>
