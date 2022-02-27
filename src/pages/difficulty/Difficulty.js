@@ -41,6 +41,7 @@ export default function Difficulty() {
                 <th scope="col"># of High Awards</th>
                 <th scope="col"># of Medium Awards</th>
                 <th scope="col"># of Low Awards</th>
+                <th scope="col">Rank</th>
               </tr>
             </thead>
             <tbody>
@@ -59,6 +60,7 @@ export default function Difficulty() {
                 <th scope="col"># of High Awards</th>
                 <th scope="col"># of Medium Awards</th>
                 <th scope="col"># of Low Awards</th>
+                <th scope="col">Rank</th>
               </tr>
             </thead>
             <tbody>

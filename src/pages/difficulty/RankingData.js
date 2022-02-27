@@ -12,6 +12,7 @@ export default function RankingData({judge, year}) {
             <td>{highDocuments.length}</td>
             <td>{medDocuments.length}</td>
             <td>{lowDocuments.length}</td>
+            <td>{highDocuments.length * 3 + medDocuments.length * 2 + lowDocuments.length}</td>
         </tr>
     }
     </>
