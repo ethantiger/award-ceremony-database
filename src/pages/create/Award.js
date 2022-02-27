@@ -45,7 +45,7 @@ export default function Award() {
             setFormError('Please fill out a difficulty')
             return
         }
-        if (allAwards && allAwards.includes(award)) {
+        if (allAwards && allAwards.includes(award.trim())) {
             setFormError('Award already exists')
             return
         }
@@ -124,8 +124,8 @@ export default function Award() {
                         </div>
                     </label>
                     <button className="btn btn-warning mb-5">Add New Award</button>
-                    {formError && <p className="lead fw-bold text-danger">{formError}</p>}
-                    {success && <p className="lead fw-bold text-success">Success</p>}
+                    {formError && <p className="lead fw-bold text-center text-light rounded border bg-danger p-2">{formError}</p>}
+                    {success && <p className="lead fw-bold text-center text-light rounded border bg-success p-2">Success</p>}
                 </div>
                 <div className="col-md-5">
                     <h4>Awards</h4>

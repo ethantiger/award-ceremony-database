@@ -24,7 +24,7 @@ export default function Adjudicator() {
             setFormError('Please fill out a name')
             return
         }
-        if (allNames && allNames.includes(name)) {
+        if (allNames && allNames.includes(name.trim())) {
             setFormError('Name already exists')
             return
         }
@@ -52,12 +52,12 @@ export default function Adjudicator() {
                     <label className="form-label">
                         <div className="input-group">
                             <span className="input-group-text">Name</span>
-                            <input className="form-control" type="text" onChange={(e) => setName(e.target.value.trim())} value={name} />
+                            <input className="form-control" type="text" onChange={(e) => setName(e.target.value)} value={name} />
                         </div>
                     </label>
                     <button className="btn btn-warning mb-5">Add New Adjudicator</button>
-                    {formError && <p className="lead fw-bold text-danger">{formError}</p>}
-                    {success && <p className="lead fw-bold text-success">Success</p>}
+                    {formError && <p className="lead fw-bold text-center text-light rounded border bg-danger p-2">{formError}</p>}
+                    {success && <p className="lead fw-bold text-center text-light rounded border bg-success p-2">Success</p>}
                 </div>
                 <div className="col-md-5">
                     <h4>Adjudicator Names</h4>

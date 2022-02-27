@@ -24,7 +24,7 @@ export default function Year() {
             setFormError('Please fill out a year')
             return
         }
-        if (allYears && allYears.includes(year)) {
+        if (allYears && allYears.includes(year.trim())) {
             setFormError('Year already Exists')
             return
         }
@@ -56,8 +56,8 @@ export default function Year() {
                         </div>
                     </label>
                     <button className="btn btn-warning mb-5">Add New Year</button>
-                    {formError && <p className="lead fw-bold text-danger">{formError}</p>}
-                    {success && <p className="lead fw-bold text-success">Success</p>}
+                    {formError && <p className="lead fw-bold text-center text-light rounded border bg-danger p-2">{formError}</p>}
+                    {success && <p className="lead fw-bold text-center text-light rounded border bg-success p-2">Success</p>}
                 </div>
                 <div className="col-md-5">
                     <h4>Years</h4>
