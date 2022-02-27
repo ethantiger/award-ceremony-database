@@ -26,7 +26,10 @@ export default function Navbar() {
                             <NavLink className="nav-link" to="/difficulty">Difficulty</NavLink>
                         </li>
                         <li className="nav-item d-md-none">
-                        <a href="#sidebar" className="nav-link" data-bs-toggle="offcanvas" role="button">Create <i className="bi bi-plus-circle-fill"></i></a>
+                            <a href="#sidebar" className="nav-link" data-bs-toggle="offcanvas" role="button">Create <i className="bi bi-plus-circle-fill"></i></a>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/login">Login</NavLink>
                         </li>
                         <li className="nav-item ms-2 d-none d-md-inline">
                             <a href="#sidebar" className="btn btn-dark text-light" data-bs-toggle="offcanvas" role="button">Create <i className="bi bi-plus-circle-fill"></i></a>

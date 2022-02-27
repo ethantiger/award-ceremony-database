@@ -10,6 +10,7 @@ import Entry from './pages/create/Entry'
 import Adjudicator from './pages/create/Adjudicator';
 import Award from './pages/create/Award';
 import Year from './pages/create/Year';
+import Login from './pages/login/Login'
 
 // styles
 import './App.css';
@@ -30,6 +31,7 @@ function App() {
           <Route path="/create/adjudicator" element={<Adjudicator />} />
           <Route path="/create/award" element={<Award />} />
           <Route path="/create/year" element={<Year />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>
