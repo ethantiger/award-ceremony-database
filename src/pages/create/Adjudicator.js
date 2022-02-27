@@ -32,7 +32,7 @@ export default function Adjudicator() {
         let updates = {
             adjudicators: [
                 ...allNames,
-                name
+                name.trim()
             ]
         }
 
@@ -52,7 +52,7 @@ export default function Adjudicator() {
                     <label className="form-label">
                         <div className="input-group">
                             <span className="input-group-text">Name</span>
-                            <input className="form-control" type="text" onChange={(e) => setName(e.target.value)} value={name} />
+                            <input className="form-control" type="text" onChange={(e) => setName(e.target.value.trim())} value={name} />
                         </div>
                     </label>
                     <button className="btn btn-warning mb-5">Add New Adjudicator</button>

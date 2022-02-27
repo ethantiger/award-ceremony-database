@@ -32,7 +32,7 @@ export default function Year() {
         let updates = {
             years: [
                 ...allYears,
-                year
+                year.trim()
             ]
         }
 

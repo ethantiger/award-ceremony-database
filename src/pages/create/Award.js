@@ -53,7 +53,7 @@ export default function Award() {
         let updates = {
             awards: [
                 ...allAwards,
-                award
+                award.trim()
             ]
         }
 
