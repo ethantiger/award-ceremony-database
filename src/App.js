@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuthContext } from './hooks/useAuthContext';
 
 // components and pages
 import Navbar from './components/Navbar'
@@ -18,22 +19,25 @@ import './App.css';
 
 
 function App() {
+  const { user, authIsReady } = useAuthContext()
   return (
     <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/database" element={<Database />} />
-          <Route path="/awards-judged" element={<AwardsJudged />} />
-          <Route path="/difficulty" element={<Difficulty />} />
-          <Route path="/create/entry" element={<Entry />} />
-          <Route path="/create/adjudicator" element={<Adjudicator />} />
-          <Route path="/create/award" element={<Award />} />
-          <Route path="/create/year" element={<Year />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </BrowserRouter>
+      {authIsReady &&
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="/database" element={<Database />} />
+            <Route path="/awards-judged" element={<AwardsJudged />} />
+            <Route path="/difficulty" element={<Difficulty />} />
+            <Route path="/create/entry" element={user ? <Entry /> : <Navigate to="/" />} />
+            <Route path="/create/adjudicator" element={user ? <Adjudicator /> : <Navigate to="/" />} />
+            <Route path="/create/award" element={user ? <Award /> : <Navigate to="/" />} />
+            <Route path="/create/year" element={user ? <Year /> : <Navigate to="/" />} />
+            <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+          </Routes>
+        </BrowserRouter>
+      }
     </div>
   );
 }
