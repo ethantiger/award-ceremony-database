@@ -107,6 +107,7 @@ export default function Award() {
     }
 
     const handleClick = async (awardSelected) => {
+        console.log(awardSelected)
         const awards = allAwards.filter((award) => {
             return awardSelected !== award
         })
@@ -202,13 +203,33 @@ export default function Award() {
                             </tr>
                         </thead>
                         <tbody>
-                            {document && document.awards.map((award) => (
+                            {document && document.awards.map((award) => {
+                                const id = `Id${Math.round(Math.random() * 10000)}`
+                                return (
                                 <tr key={award}>
-                                    <td>{award} <span className="float-end" onClick={() => handleClick(award)}><i className="bi bi-trash-fill"></i></span></td>
+                                    <td>{award} 
+                                        <div className="modal fade" id={id} tabIndex="-1">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title">Are you sure?</h5>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <p>You are about to delete {award}.</p>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => handleClick(award)}>Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <span className="float-end" data-bs-toggle="modal" data-bs-target={`#${id}`}><i className="bi bi-trash-fill"></i></span>
+                                    </td>
                                 </tr>
-                            ))}   
+                            )})}   
                         </tbody>
-                    
                     </table>
                 </div>
             </div>

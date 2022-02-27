@@ -84,11 +84,32 @@ export default function Year() {
                             </tr>
                         </thead>
                         <tbody>
-                            {document && document.years.map((year) => (
+                            {document && document.years.map((year) => {
+                                const id = `Id${Math.round(Math.random() * 10000)}`
+                                return (
                                 <tr key={year}>
-                                    <td>{year} <span className="float-end" onClick={() => handleClick(year)}><i className="bi bi-trash-fill"></i></span></td>
+                                    <td>{year} 
+                                        <div className="modal fade" id={id} tabIndex="-1">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title">Are you sure?</h5>
+                                                    </div>
+                                                    <div className="modal-body">
+                                                        <p>You are about to delete {year}.</p>
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={() => handleClick(year)}>Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    
+                                        <span className="float-end" data-bs-toggle="modal" data-bs-target={`#${id}`}><i className="bi bi-trash-fill"></i></span>
+                                    </td>
                                 </tr>
-                            ))}   
+                            )})}   
                         </tbody>
                     
                     </table>
