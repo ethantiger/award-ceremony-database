@@ -48,7 +48,7 @@ export default function DataEntries({award, name, year, pair}) {
                 <td>{document.year}</td>
                 <td>{document.pair ? <i className="bi bi-check"></i>:<i className="bi bi-x"></i>}</td>
                 <td>{document.difficulty} 
-                  {user && <div className="modal fade" id={document.id} tabIndex="-1">
+                  {user && <div className="modal fade" id={`ID${document.id}`} tabIndex="-1">
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -64,7 +64,7 @@ export default function DataEntries({award, name, year, pair}) {
                         </div>
                     </div>
                   </div>}
-                {user && <span className="float-end" data-bs-toggle="modal" data-bs-target={`#${document.id}`}><i className="bi bi-trash-fill"></i></span>}</td>
+                {user && <span className="float-end" data-bs-toggle="modal" data-bs-target={`#ID${document.id}`}><i className="bi bi-trash-fill"></i></span>}</td>
             </tr>
         ))}
     </>
