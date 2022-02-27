@@ -25,7 +25,7 @@ export default function Year() {
             return
         }
         if (allYears && allYears.includes(year.trim())) {
-            setFormError('Year already Exists')
+            setFormError('Year already exists')
             return
         }
 

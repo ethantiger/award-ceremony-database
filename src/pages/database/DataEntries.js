@@ -1,8 +1,11 @@
 import { db } from "../../firebase/config"
 import { useEffect, useState } from 'react'
 import { collection, onSnapshot, query, where, orderBy } from "firebase/firestore"
+import { useFirestore } from '../../hooks/useFirestore'
+
 
 export default function DataEntries({award, name, year, pair}) {
+    const { deleteDocument } = useFirestore('award-entry')
     const [documents, setDocuments] = useState(null)
 
     useEffect(() => {
@@ -31,6 +34,10 @@ export default function DataEntries({award, name, year, pair}) {
     return () => unsub()  
     },[setDocuments, award, name, year, pair])
 
+    const handleClick = async (id) => {
+      await deleteDocument(id)
+    }
+
   return (
     <>
         {documents && documents.map((document) => (
@@ -39,7 +46,7 @@ export default function DataEntries({award, name, year, pair}) {
                 <td>{document.name}</td>
                 <td>{document.year}</td>
                 <td>{document.pair ? <i className="bi bi-check"></i>:<i className="bi bi-x"></i>}</td>
-                <td>{document.difficulty}</td>
+                <td>{document.difficulty} <span className="float-end" onClick={() => handleClick(document.id)}><i className="bi bi-trash-fill"></i></span></td>
             </tr>
         ))}
     </>

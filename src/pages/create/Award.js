@@ -3,6 +3,8 @@ import { useDocument } from '../../hooks/useDocument'
 import { useFirestore } from '../../hooks/useFirestore'
 import Select from 'react-select'
 
+import './Create.css'
+
 export default function Award() {
     const { document } = useDocument("award-info", "3RWf2J0uS8BX4MIsPU87")
     const { updateDocument } = useFirestore('award-info')

@@ -132,8 +132,8 @@ export default function Entry() {
                 </div>
             </div>
             <button className="btn btn-warning mb-5">Add New Entry</button>
-            {formError && <p className="lead fw-bold text-danger">{formError}</p>}
-            {success && <p className="lead fw-bold text-success">Success</p>}
+            {formError && <p className="lead fw-bold text-center text-light rounded border bg-danger p-2">{formError}</p>}
+            {success && <p className="lead fw-bold text-center text-light rounded border bg-success p-2">Success</p>}
         </form>
     </div>
   )
