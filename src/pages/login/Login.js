@@ -11,11 +11,11 @@ export default function Login() {
         login(email, password)
     }
   return (
-    <div className="container-xxl mt-5" style={ {width: '33%'}}>
+    <div className="container-xxl mt-5" style={ {width: '33%', minWidth: "500px"}}>
         {error && <p className="lead fw-bold text-center text-light rounded border bg-danger p-2">{error}</p>}
         <div className="card">
             <div className="card-body">
-                <h4 className="card-title">Login </h4>
+                <h4 className="card-title">Login</h4>
                 <div className="card-body">
                     <form onSubmit={(e) => handleSubmit(e)}>
                         <label className="form-label">
