@@ -16,6 +16,10 @@ export default function Award() {
     const [allAwards, setAllAwards] = useState([])
     const [allDifficulty, setAllDifficulty] = useState(null)
 
+    const [high, setHigh] = useState([])
+    const [medium, setMedium] = useState([])
+    const [low, setLow] = useState([])
+
     const options = [
         {value: 'NA', label: 'NA'},
         {value: 'Low', label: 'Low'},
@@ -30,6 +34,9 @@ export default function Award() {
         }
         if (diffDoc) {
             setAllDifficulty(diffDoc)
+            setHigh(diffDoc.high)
+            setMedium(diffDoc.medium)
+            setLow(diffDoc.low)
         }
     },[document, diffDoc])
 
@@ -97,6 +104,63 @@ export default function Award() {
         }, 3000)
     }
 
+    const handleClick = async (awardSelected) => {
+        const awards = allAwards.filter((award) => {
+            return awardSelected !== award
+        })
+        let updates = {
+            awards: [
+                ...awards
+            ]
+        }
+
+        let diffAwards = []
+        let diffUpdates = {}
+        if (high && high.includes(awardSelected)) {
+            diffAwards = allDifficulty.high.filter((award) => {
+                return awardSelected !== award
+            })
+            diffUpdates = {
+                high: [
+                    ...diffAwards
+                ]
+            }
+        }else if (medium && medium.includes(awardSelected)) {
+            diffAwards = allDifficulty.medium.filter((award) => {
+                return awardSelected !== award
+            })
+            diffUpdates = {
+                medium: [
+                    ...diffAwards
+                ]
+            }
+        } else if (low && low.includes(awardSelected)) {
+            diffAwards = allDifficulty.low.filter((award) => {
+                return awardSelected !== award
+            })
+            diffUpdates = {
+                low: [
+                    ...diffAwards
+                ]
+            }
+        } else {
+            diffAwards = allDifficulty.na.filter((award) => {
+                return awardSelected !== award
+            })
+            diffUpdates = {
+                na: [
+                    ...diffAwards
+                ]
+            }
+        }
+        await updateDocument("3RWf2J0uS8BX4MIsPU87", updates)
+        await updateDifficulty('hoxAT5NRUuol306P6CcV', diffUpdates)
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+        }, 3000)
+    }
+
   return (
     <div className="container-xxl">  
         <form className="mt-5" onSubmit={(e) => handleSubmit(e)}>
@@ -137,8 +201,8 @@ export default function Award() {
                         </thead>
                         <tbody>
                             {document && document.awards.map((award) => (
-                                <tr>
-                                    <td>{award}</td>
+                                <tr key={award}>
+                                    <td>{award} <span className="float-end" onClick={() => handleClick(award)}><i className="bi bi-trash-fill"></i></span></td>
                                 </tr>
                             ))}   
                         </tbody>

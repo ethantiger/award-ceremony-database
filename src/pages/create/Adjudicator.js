@@ -44,6 +44,22 @@ export default function Adjudicator() {
         }, 3000)
     }
 
+    const handleClick = async (adjudicator) => {
+        const names = allNames.filter((name) => {
+            return adjudicator !== name
+        })
+        let updates = {
+            adjudicators: [
+                ...names
+            ]
+        }
+        await updateDocument("3RWf2J0uS8BX4MIsPU87", updates)
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+        }, 3000)
+    }
+
   return (
     <div className="container-xxl">  
         <form className="mt-5" onSubmit={(e) => handleSubmit(e)}>
@@ -69,8 +85,8 @@ export default function Adjudicator() {
                         </thead>
                         <tbody>
                             {document && document.adjudicators.map((adjudicator) => (
-                                <tr>
-                                    <td>{adjudicator}</td>
+                                <tr key={adjudicator}>
+                                    <td>{adjudicator} <span className="float-end" onClick={() => handleClick(adjudicator)}><i className="bi bi-trash-fill"></i></span></td>
                                 </tr>
                             ))}   
                         </tbody>

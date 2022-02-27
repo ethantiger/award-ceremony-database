@@ -44,6 +44,22 @@ export default function Year() {
         }, 3000)
     }
 
+    const handleClick = async (yearSelected) => {
+        const years = allYears.filter((year) => {
+            return yearSelected !== year
+        })
+        let updates = {
+            years: [
+                ...years
+            ]
+        }
+        await updateDocument("3RWf2J0uS8BX4MIsPU87", updates)
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+        }, 3000)
+    }
+
   return (
     <div className="container-xxl">  
         <form className="mt-5" onSubmit={(e) => handleSubmit(e)}>
@@ -69,8 +85,8 @@ export default function Year() {
                         </thead>
                         <tbody>
                             {document && document.years.map((year) => (
-                                <tr>
-                                    <td>{year}</td>
+                                <tr key={year}>
+                                    <td>{year} <span className="float-end" onClick={() => handleClick(year)}><i className="bi bi-trash-fill"></i></span></td>
                                 </tr>
                             ))}   
                         </tbody>
