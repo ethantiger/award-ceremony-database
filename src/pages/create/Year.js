@@ -55,11 +55,29 @@ export default function Year() {
                             <input className="form-control" type="text" onChange={(e) => setYear(e.target.value)} value={year} />
                         </div>
                     </label>
+                    <button className="btn btn-warning mb-5">Add New Year</button>
+                    {formError && <p className="lead fw-bold text-danger">{formError}</p>}
+                    {success && <p className="lead fw-bold text-success">Success</p>}
+                </div>
+                <div className="col-md-5">
+                    <h4>Years</h4>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th className="col">Years</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {document && document.years.map((year) => (
+                                <tr>
+                                    <td>{year}</td>
+                                </tr>
+                            ))}   
+                        </tbody>
+                    
+                    </table>
                 </div>
             </div>
-            <button className="btn btn-warning mb-5">Add New Year</button>
-            {formError && <p className="lead fw-bold text-danger">{formError}</p>}
-            {success && <p className="lead fw-bold text-success">Success</p>}
         </form>
     </div>
   )

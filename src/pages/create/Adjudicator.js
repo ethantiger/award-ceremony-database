@@ -25,7 +25,7 @@ export default function Adjudicator() {
             return
         }
         if (allNames && allNames.includes(name)) {
-            setFormError('Name already Exists')
+            setFormError('Name already exists')
             return
         }
 
@@ -55,11 +55,29 @@ export default function Adjudicator() {
                             <input className="form-control" type="text" onChange={(e) => setName(e.target.value)} value={name} />
                         </div>
                     </label>
+                    <button className="btn btn-warning mb-5">Add New Adjudicator</button>
+                    {formError && <p className="lead fw-bold text-danger">{formError}</p>}
+                    {success && <p className="lead fw-bold text-success">Success</p>}
+                </div>
+                <div className="col-md-5">
+                    <h4>Adjudicator Names</h4>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th className="col">Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {document && document.adjudicators.map((adjudicator) => (
+                                <tr>
+                                    <td>{adjudicator}</td>
+                                </tr>
+                            ))}   
+                        </tbody>
+                    
+                    </table>
                 </div>
             </div>
-            <button className="btn btn-warning mb-5">Add New Adjudicator</button>
-            {formError && <p className="lead fw-bold text-danger">{formError}</p>}
-            {success && <p className="lead fw-bold text-success">Success</p>}
         </form>
     </div>
   )

@@ -6,7 +6,6 @@ import Home from './pages/home/Home'
 import Database from './pages/database/Database';
 import AwardsJudged from './pages/awardsJudged/AwardsJudged'
 import Difficulty from './pages/difficulty/Difficulty'
-import PastWinners from './pages/pastWinners/PastWinners'
 import Entry from './pages/create/Entry'
 import Adjudicator from './pages/create/Adjudicator';
 import Award from './pages/create/Award';
@@ -27,7 +26,6 @@ function App() {
           <Route path="/database" element={<Database />} />
           <Route path="/awards-judged" element={<AwardsJudged />} />
           <Route path="/difficulty" element={<Difficulty />} />
-          <Route path="/winners" element={<PastWinners />} />
           <Route path="/create/entry" element={<Entry />} />
           <Route path="/create/adjudicator" element={<Adjudicator />} />
           <Route path="/create/award" element={<Award />} />

@@ -46,7 +46,7 @@ export default function Award() {
             return
         }
         if (allAwards && allAwards.includes(award)) {
-            setFormError('Award already Exists')
+            setFormError('Award already exists')
             return
         }
 
@@ -108,8 +108,6 @@ export default function Award() {
                             <input className="form-control" type="text" onChange={(e) => setAward(e.target.value)} value={award} />
                         </div>
                     </label>
-                </div>
-                <div className="col-md-3">
                     <label>
                         <div className="input-group">
                             <span className="input-group-text">Difficulty</span>
@@ -125,11 +123,29 @@ export default function Award() {
                             />
                         </div>
                     </label>
+                    <button className="btn btn-warning mb-5">Add New Award</button>
+                    {formError && <p className="lead fw-bold text-danger">{formError}</p>}
+                    {success && <p className="lead fw-bold text-success">Success</p>}
+                </div>
+                <div className="col-md-5">
+                    <h4>Awards</h4>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th className="col">Award Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {document && document.awards.map((award) => (
+                                <tr>
+                                    <td>{award}</td>
+                                </tr>
+                            ))}   
+                        </tbody>
+                    
+                    </table>
                 </div>
             </div>
-            <button className="btn btn-warning mb-5">Add New Award</button>
-            {formError && <p className="lead fw-bold text-danger">{formError}</p>}
-            {success && <p className="lead fw-bold text-success">Success</p>}
         </form>
     </div>
   )
