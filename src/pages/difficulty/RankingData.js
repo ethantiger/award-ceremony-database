@@ -1,9 +1,25 @@
-import { useMultiQuery } from "../../hooks/useMultiQuery"
-
-export default function RankingData({judge, year}) {
-    const { documents: highDocuments } = useMultiQuery('award-entry', ['name', '==', judge], ['difficulty', '==', 'High'], year)
-    const { documents: medDocuments } = useMultiQuery('award-entry', ['name', '==', judge], ['difficulty', '==', 'Medium'], year)
-    const { documents: lowDocuments } = useMultiQuery('award-entry', ['name', '==', judge], ['difficulty', '==', 'Low'], year)
+export default function RankingData({judge, year, documents}) {
+    const highDocuments = documents.filter((document) => {
+      if (year) {
+        return document.name === judge && document.year === year && document.difficulty === 'High'
+      } else {
+        return document.name === judge && document.difficulty === 'High'
+      }
+    })
+    const medDocuments = documents.filter((document) => {
+      if (year) {
+        return document.name === judge && document.year === year && document.difficulty === 'Medium'
+      } else {
+        return document.name === judge && document.difficulty === 'Medium'
+      }
+    })
+    const lowDocuments = documents.filter((document) => {
+      if (year) {
+        return document.name === judge && document.year === year && document.difficulty === 'Low'
+      } else {
+        return document.name === judge && document.difficulty === 'Low'
+      }
+    })
   return (
     <>
     {highDocuments && medDocuments && lowDocuments && 
