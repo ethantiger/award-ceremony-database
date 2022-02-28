@@ -15,6 +15,7 @@ export default function Database() {
     const [name, setName] = useState('')
     const [year, setYear] = useState('')
     const [pair, setPair] = useState(null)
+    const [limit, setLimit] = useState(25)
 
     useEffect(() => {
       if (document) {
@@ -33,7 +34,7 @@ export default function Database() {
     <div className="mt-5 container-xxl">
       <h4>Filter by:</h4>
       <div className="row">
-        <div className="col-md-5">
+        <div className="col-md-4">
             <label>
                 <span>Award</span>
                 <Select
@@ -42,7 +43,7 @@ export default function Database() {
                 />
             </label>
         </div>
-        <div className="col-md-3">
+        <div className="col-md-2">
             <label>
                 <span>Adjudicator</span>
                 <Select
@@ -73,6 +74,20 @@ export default function Database() {
                 />
             </label>
         </div>
+        <div className="col-md-2">
+            <label>
+                <span>Limit</span>
+                <Select
+                    onChange={(option) => setLimit(option.value)}
+                    options={[
+                        {value: null, label: 'No limit'},
+                        {value: 25, label: '25'},
+                        {value: 50, label: '50' },
+                        {value: 100, label: '100'}
+                ]} 
+                />
+            </label>
+        </div>
       </div>
       <table className="table">
         <thead>
@@ -89,7 +104,8 @@ export default function Database() {
             award={award} 
             name={name} 
             year={year} 
-            pair={pair} 
+            pair={pair}
+            lim={limit} 
           />
         </tbody>
       </table>

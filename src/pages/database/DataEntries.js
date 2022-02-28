@@ -1,16 +1,19 @@
 import { db } from "../../firebase/config"
 import { useEffect, useState } from 'react'
-import { collection, onSnapshot, query, where, orderBy } from "firebase/firestore"
+import { collection, onSnapshot, query, where, orderBy, limit } from "firebase/firestore"
 import { useFirestore } from '../../hooks/useFirestore'
 import { useAuthContext } from "../../hooks/useAuthContext"
 
-export default function DataEntries({award, name, year, pair}) {
+export default function DataEntries({award, name, year, pair, lim}) {
     const { user } = useAuthContext()
     const { deleteDocument } = useFirestore('award-entry')
     const [documents, setDocuments] = useState(null)
 
     useEffect(() => {
       let ref = collection(db, 'award-entry')
+      if (lim) {
+        ref = query(ref, limit(lim))
+      }
       if (award.value) {
         ref = query(ref, where('award', '==', award.value))
       }
@@ -31,9 +34,10 @@ export default function DataEntries({award, name, year, pair}) {
             results.push({...doc.data(), id: doc.id})
         })
         setDocuments(results)
+        console.log(`Document Reads: ${results.length}`)
     })
     return () => unsub()  
-    },[setDocuments, award, name, year, pair])
+    },[setDocuments, award, name, year, pair,lim])
 
     const handleClick = async (id) => {
       await deleteDocument(id)
