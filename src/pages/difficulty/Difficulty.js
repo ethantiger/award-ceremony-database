@@ -1,30 +1,19 @@
 import { useState, useEffect } from 'react'
 import Select from 'react-select'
-import { useDocument } from '../../hooks/useDocument'
-import { useCollection } from '../../hooks/useCollection'
 
 import RankingData from './RankingData'
 
-export default function Difficulty() {
-  const { document } = useDocument('award-info', '3RWf2J0uS8BX4MIsPU87')
-  const { documents: entries } = useCollection('award-entry')
+export default function Difficulty({info, entries}) {
   const [years, setYears] = useState([])
   const [curYear, setCurYear] = useState('')
 
   useEffect(() => {
-    if (document) {
-      setYears(document.years.map((year) => {
+    if (info) {
+      setYears(info.years.map((year) => {
         return {value: year, label: year}
       }))
     }
-  },[document])
-
-  useEffect(() => {
-    if (entries) {
-      console.log(entries.length)
-    }
-  },[entries])
-
+  },[info])
 
   return (
     <div className="mt-5 container-xxl">
@@ -54,7 +43,7 @@ export default function Difficulty() {
               </tr>
             </thead>
             <tbody>
-                {document && entries && document.adjudicators.map((judge) => (
+                {info && entries && info.adjudicators.map((judge) => (
                   <RankingData key={judge} judge={judge} year={curYear} documents={entries}/>
                 ))}
             </tbody>
@@ -73,7 +62,7 @@ export default function Difficulty() {
               </tr>
             </thead>
             <tbody>
-                {document && entries && document.adjudicators.map((judge) => (
+                {info && entries && info.adjudicators.map((judge) => (
                   <RankingData key={judge} judge={judge} documents={entries}/>
                 ))}
             </tbody>

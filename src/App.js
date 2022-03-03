@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
+import { useCollection } from './hooks/useCollection'
+import { useDocument } from './hooks/useDocument'
 
 // components and pages
 import Navbar from './components/Navbar'
@@ -20,6 +22,10 @@ import './App.css';
 
 function App() {
   const { user, authIsReady } = useAuthContext()
+  const { documents: entries } = useCollection('award-entry',null,['createdAt', 'desc'])
+  const { document: difficulty } = useDocument('award-difficulty', 'hoxAT5NRUuol306P6CcV')
+  const { document: info } = useDocument('award-info', '3RWf2J0uS8BX4MIsPU87')
+
   return (
     <div className="App">
       {authIsReady &&
@@ -27,9 +33,9 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/database" element={<Database />} />
-            <Route path="/awards-judged" element={<AwardsJudged />} />
-            <Route path="/difficulty" element={<Difficulty />} />
+            <Route path="/database" element={<Database entries={entries} info={info}/>} />
+            <Route path="/awards-judged" element={<AwardsJudged entries={entries} info={info}/>} />
+            <Route path="/difficulty" element={<Difficulty info={info} entries={entries}/>} />
             <Route path="/create/entry" element={user ? <Entry /> : <Navigate to="/" />} />
             <Route path="/create/adjudicator" element={user ? <Adjudicator /> : <Navigate to="/" />} />
             <Route path="/create/award" element={user ? <Award /> : <Navigate to="/" />} />

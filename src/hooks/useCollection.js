@@ -18,6 +18,8 @@ export const useCollection = (col, _q, _order) => {
             ref = query(ref, where(...q), orderBy(...order))
          } else if (q) {
             ref = query(ref, where(...q))
+        } else {
+            ref = query(ref, orderBy(...order))
         }
 
          const unsub = onSnapshot(ref,(snapshot) => {
@@ -29,11 +31,11 @@ export const useCollection = (col, _q, _order) => {
              // update state
              setDocuments(results)
              setError(null)
+             console.log(results)
          }, (error) => {
              console.log(error)
              setError('could not fetch the data')
          })
-
          // unsubscribe on unmount
          return () => unsub()
     }, [col, q, order])

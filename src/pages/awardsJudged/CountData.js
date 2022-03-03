@@ -1,7 +1,8 @@
-import { useCollection } from '../../hooks/useCollection'
-
-export default function CountData({judge}) {
-    const { documents } = useCollection('award-entry', ['name', '==', judge])
+export default function CountData({entries, judge}) {
+    const documents = entries.filter((document) => {
+        return document.name === judge
+    })
+    
     let inPair = []
     if (documents) {
         inPair = documents.filter((document) => {

@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 import Select from 'react-select'
-import { useDocument } from '../../hooks/useDocument'
 
 import DataEntries from './DataEntries'
 
-export default function Database() {
-    const { document } = useDocument("award-info", "3RWf2J0uS8BX4MIsPU87")
+export default function Database({entries, info}) {
 
     const [awards, setAwards] = useState([])
     const [judges, setJudges] = useState([])
@@ -15,30 +13,29 @@ export default function Database() {
     const [name, setName] = useState('')
     const [year, setYear] = useState('')
     const [pair, setPair] = useState(null)
-    const [limit, setLimit] = useState(25)
 
     useEffect(() => {
-      if (document) {
-          setAwards(document.awards.map((award) => {
+      if (info) {
+          setAwards(info.awards.map((award) => {
               return {value: award, label: award}
           }))
-          setJudges(document.adjudicators.map((judge) => {
+          setJudges(info.adjudicators.map((judge) => {
               return {value: judge, label: judge}
           }))
-          setYears(document.years.map((year) => {
+          setYears(info.years.map((year) => {
               return {value: year, label: year}
           }))
       }
-    },[document])
+    },[info])
   return (
     <div className="mt-5 container-xxl">
       <h4>Filter by:</h4>
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-md-6">
             <label>
                 <span>Award</span>
                 <Select
-                    onChange={(option) => setAward(option)}
+                    onChange={(option) => setAward(option.value)}
                     options={[{value: "", label: 'All'},...awards]}
                 />
             </label>
@@ -47,7 +44,7 @@ export default function Database() {
             <label>
                 <span>Adjudicator</span>
                 <Select
-                    onChange={(option) => setName(option)}
+                    onChange={(option) => setName(option.value)}
                     options={[{value: "", label: 'All'},...judges]}
                 />
             </label>
@@ -56,7 +53,7 @@ export default function Database() {
             <label>
                 <span>Year</span>
                 <Select
-                    onChange={(option) => setYear(option)}
+                    onChange={(option) => setYear(option.value)}
                     options={[{value: "", label: 'All'},...years]}
                 />
             </label>
@@ -74,21 +71,8 @@ export default function Database() {
                 />
             </label>
         </div>
-        <div className="col-md-2">
-            <label>
-                <span>Limit</span>
-                <Select
-                    onChange={(option) => setLimit(option.value)}
-                    options={[
-                        {value: null, label: 'No limit'},
-                        {value: 25, label: '25'},
-                        {value: 50, label: '50' },
-                        {value: 100, label: '100'}
-                ]} 
-                />
-            </label>
-        </div>
       </div>
+      {entries && 
       <table className="table">
         <thead>
           <tr>
@@ -101,14 +85,15 @@ export default function Database() {
         </thead>
         <tbody>
           <DataEntries 
+            entries={entries}
             award={award} 
             name={name} 
             year={year} 
-            pair={pair}
-            lim={limit} 
+            pair={pair} 
           />
         </tbody>
       </table>
+      }
     </div>
   )
 }

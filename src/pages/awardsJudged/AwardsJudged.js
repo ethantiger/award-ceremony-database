@@ -1,9 +1,6 @@
-import { useDocument } from '../../hooks/useDocument'
-
 import CountData from './CountData'
 
-export default function AwardsJudged() {
-  const { document } = useDocument('award-info', '3RWf2J0uS8BX4MIsPU87')
+export default function AwardsJudged({entries, info}) {
   return (
     <div className="mt-5 container-xxl">
       <table className="table">
@@ -16,8 +13,8 @@ export default function AwardsJudged() {
           </tr>
         </thead>
         <tbody>
-            {document && document.adjudicators.map((judge) => (
-              <CountData key={judge} judge={judge}/>
+            {entries && info && info.adjudicators.map((judge) => (
+              <CountData key={judge} entries={entries} judge={judge}/>
             ))}
         </tbody>
       </table>

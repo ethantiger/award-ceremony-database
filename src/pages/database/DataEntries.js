@@ -1,43 +1,31 @@
-import { db } from "../../firebase/config"
-import { useEffect, useState } from 'react'
-import { collection, onSnapshot, query, where, orderBy, limit } from "firebase/firestore"
 import { useFirestore } from '../../hooks/useFirestore'
 import { useAuthContext } from "../../hooks/useAuthContext"
 
-export default function DataEntries({award, name, year, pair, lim}) {
+export default function DataEntries({entries, award, name, year, pair}) {
     const { user } = useAuthContext()
     const { deleteDocument } = useFirestore('award-entry')
-    const [documents, setDocuments] = useState(null)
-
-    useEffect(() => {
-      let ref = collection(db, 'award-entry')
-      if (lim) {
-        ref = query(ref, limit(lim))
-      }
-      if (award.value) {
-        ref = query(ref, where('award', '==', award.value))
-      }
-      if (name.value) {
-        ref = query(ref, where('name', '==', name.value))
-      }
-      if (year.value) {
-        ref = query(ref, where('year', '==', year.value))
-      }
-      if (pair !== null) {
-        ref = query(ref, where('pair', '==', pair))
-      }
-      ref = query(ref, orderBy('createdAt', 'desc'))
-      
-      const unsub = onSnapshot(ref, (snapshot) => {
-        let results = []
-        snapshot.docs.forEach(doc => {
-            results.push({...doc.data(), id: doc.id})
-        })
-        setDocuments(results)
-        console.log(`Document Reads: ${results.length}`)
-    })
-    return () => unsub()  
-    },[setDocuments, award, name, year, pair,lim])
+    let documents = entries
+    
+    if (award) {
+      documents = documents.filter((document) => {
+        return document.award === award
+      })
+    }
+    if (name) {
+      documents = documents.filter((document) => {
+        return document.name === name
+      })
+    }
+    if (year) {
+      documents = documents.filter((document) => {
+        return document.year === year
+      })
+    }
+    if (pair !== null) {
+      documents = documents.filter((document) => {
+        return document.pair === pair
+      })
+    }
 
     const handleClick = async (id) => {
       await deleteDocument(id)
