@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useDocument } from '../../hooks/useDocument'
 import { useFirestore } from '../../hooks/useFirestore'
 
 export default function Year({info}) {
