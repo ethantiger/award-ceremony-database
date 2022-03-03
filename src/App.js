@@ -36,10 +36,10 @@ function App() {
             <Route path="/database" element={<Database entries={entries} info={info}/>} />
             <Route path="/awards-judged" element={<AwardsJudged entries={entries} info={info}/>} />
             <Route path="/difficulty" element={<Difficulty info={info} entries={entries}/>} />
-            <Route path="/create/entry" element={user ? <Entry /> : <Navigate to="/" />} />
-            <Route path="/create/adjudicator" element={user ? <Adjudicator /> : <Navigate to="/" />} />
-            <Route path="/create/award" element={user ? <Award /> : <Navigate to="/" />} />
-            <Route path="/create/year" element={user ? <Year /> : <Navigate to="/" />} />
+            <Route path="/create/entry" element={user ? <Entry info={info} diff={difficulty}/> : <Navigate to="/" />} />
+            <Route path="/create/adjudicator" element={user ? <Adjudicator info={info}/> : <Navigate to="/" />} />
+            <Route path="/create/award" element={user ? <Award info={info} diff={difficulty}/> : <Navigate to="/" />} />
+            <Route path="/create/year" element={user ? <Year info={info}/> : <Navigate to="/" />} />
             <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
           </Routes>
         </BrowserRouter>

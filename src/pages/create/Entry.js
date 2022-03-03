@@ -3,17 +3,14 @@ import './Create.css'
 import Select from 'react-select'
 import { useEffect, useState } from 'react'
 
-import { useDocument } from '../../hooks/useDocument'
 import { useFirestore } from '../../hooks/useFirestore'
 
-export default function Entry() {
-    const { document } = useDocument("award-info", "3RWf2J0uS8BX4MIsPU87")
+export default function Entry({info, diff}) {
     const { addDocument } = useFirestore("award-entry")
     const [awards, setAwards] = useState([])
     const [judges, setJudges] = useState([])
     const [years, setYears] = useState([])
 
-    const { document: rankingDoc } = useDocument("award-difficulty", 'hoxAT5NRUuol306P6CcV')
     const [high, setHigh] = useState([])
     const [medium, setMedium] = useState([])
     const [low, setLow] = useState([])
@@ -26,23 +23,23 @@ export default function Entry() {
     const [pair, setPair] = useState(false)
 
     useEffect(() => {
-        if (document) {
-            setAwards(document.awards.map((award) => {
+        if (info) {
+            setAwards(info.awards.map((award) => {
                 return {value: award, label: award}
             }))
-            setJudges(document.adjudicators.map((judge) => {
+            setJudges(info.adjudicators.map((judge) => {
                 return {value: judge, label: judge}
             }))
-            setYears(document.years.map((year) => {
+            setYears(info.years.map((year) => {
                 return {value: year, label: year}
             }))
         }
-        if (rankingDoc) {
-            setHigh(rankingDoc.high)
-            setMedium(rankingDoc.medium)
-            setLow(rankingDoc.low)
+        if (diff) {
+            setHigh(diff.high)
+            setMedium(diff.medium)
+            setLow(diff.low)
         }
-    },[document, rankingDoc])
+    },[info, diff])
     
     const handleSubmit = async (e) => {
         e.preventDefault()

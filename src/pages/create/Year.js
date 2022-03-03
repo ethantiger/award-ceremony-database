@@ -2,8 +2,7 @@ import { useEffect, useState } from "react"
 import { useDocument } from '../../hooks/useDocument'
 import { useFirestore } from '../../hooks/useFirestore'
 
-export default function Year() {
-    const { document } = useDocument("award-info", "3RWf2J0uS8BX4MIsPU87")
+export default function Year({info}) {
     const { updateDocument } = useFirestore('award-info')
     const [year, setYear] = useState("")
     const [success, setSuccess] = useState(false)
@@ -11,10 +10,10 @@ export default function Year() {
     const [allYears, setAllYears] = useState([])
 
     useEffect(() => {
-        if (document) {
-            setAllYears(document.years)
+        if (info) {
+            setAllYears(info.years)
         }
-    },[document])
+    },[info])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -84,7 +83,7 @@ export default function Year() {
                             </tr>
                         </thead>
                         <tbody>
-                            {document && document.years.map((year) => {
+                            {info && info.years.map((year) => {
                                 const id = `Id${Math.round(Math.random() * 10000)}`
                                 return (
                                 <tr key={year}>

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react"
-import { useDocument } from '../../hooks/useDocument'
 import { useFirestore } from '../../hooks/useFirestore'
 
-export default function Adjudicator() {
-    const { document } = useDocument("award-info", "3RWf2J0uS8BX4MIsPU87")
+export default function Adjudicator({info}) {
     const { updateDocument } = useFirestore('award-info')
     const [name, setName] = useState("")
     const [success, setSuccess] = useState(false)
@@ -11,10 +9,10 @@ export default function Adjudicator() {
     const [allNames, setAllNames] = useState([])
 
     useEffect(() => {
-        if (document) {
-            setAllNames(document.adjudicators)
+        if (info) {
+            setAllNames(info.adjudicators)
         }
-    },[document])
+    },[info])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -84,7 +82,7 @@ export default function Adjudicator() {
                             </tr>
                         </thead>
                         <tbody>
-                            {document && document.adjudicators.map((adjudicator) => {
+                            {info && info.adjudicators.map((adjudicator) => {
                             const id = `Id${Math.round(Math.random() * 10000)}`
                             return (
                                 <tr key={adjudicator}>

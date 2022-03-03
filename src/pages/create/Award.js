@@ -5,11 +5,8 @@ import Select from 'react-select'
 
 import './Create.css'
 
-export default function Award() {
-    const { document } = useDocument("award-info", "3RWf2J0uS8BX4MIsPU87")
+export default function Award({info, diff}) {
     const { updateDocument } = useFirestore('award-info')
-
-    const { document: diffDoc } = useDocument("award-difficulty", "hoxAT5NRUuol306P6CcV")
     const { updateDocument: updateDifficulty } = useFirestore('award-difficulty')
     const [award, setAward] = useState("")
     const [difficulty, setDifficulty] = useState(null)
@@ -31,16 +28,16 @@ export default function Award() {
 
 
     useEffect(() => {
-        if (document) {
-            setAllAwards(document.awards)
+        if (info) {
+            setAllAwards(info.awards)
         }
-        if (diffDoc) {
-            setAllDifficulty(diffDoc)
-            setHigh(diffDoc.high)
-            setMedium(diffDoc.medium)
-            setLow(diffDoc.low)
+        if (diff) {
+            setAllDifficulty(diff)
+            setHigh(diff.high)
+            setMedium(diff.medium)
+            setLow(diff.low)
         }
-    },[document, diffDoc])
+    },[info, diff])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -203,7 +200,7 @@ export default function Award() {
                             </tr>
                         </thead>
                         <tbody>
-                            {document && document.awards.map((award) => {
+                            {info && info.awards.map((award) => {
                                 const id = `Id${Math.round(Math.random() * 10000)}`
                                 return (
                                 <tr key={award}>

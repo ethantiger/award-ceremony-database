@@ -13,6 +13,7 @@ export const useDocument = (col, id) => {
         const unsub = onSnapshot(docRef, (snapshot) => {
             if (snapshot.data()) {
                 setDocument({...snapshot.data(), id: snapshot.id})
+                console.log(snapshot.data())
                 setError(null)
             } else {
                 setError('no such document exists')
