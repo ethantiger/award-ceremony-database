@@ -1,6 +1,7 @@
 import { useFirestore } from "../../hooks/useFirestore"
-
+import { useAuthContext } from '../../hooks/useAuthContext'
 export default function FormChoices({form}) {
+    const { user } = useAuthContext()
     const { updateDocument } = useFirestore('award-form')
 
     const handleClick = async (choice) => {
@@ -11,7 +12,10 @@ export default function FormChoices({form}) {
     }
   return (
     <div className="container-xxl">
-        <table className="table mt-5">
+        <div className="row mt-5">
+            <p className="lead">Access the form here: </p>
+        </div>
+        <table className="table mt-2">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
@@ -33,7 +37,7 @@ export default function FormChoices({form}) {
                         <td>{judge.third}</td>
                         <td>{judge.fourth}</td>
                         <td>{judge.fifth}
-                        <div className="modal fade" id={id} tabIndex="-1">
+                        {user && <div className="modal fade" id={id} tabIndex="-1">
                             <div className="modal-dialog">
                                 <div className="modal-content">
                                     <div className="modal-header">
@@ -48,8 +52,8 @@ export default function FormChoices({form}) {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <span className="float-end" data-bs-toggle="modal" data-bs-target={`#${id}`}><i className="bi bi-trash-fill"></i></span></td>
+                        </div>}
+                        {user && <span className="float-end" data-bs-toggle="modal" data-bs-target={`#${id}`}><i className="bi bi-trash-fill"></i></span>}</td>
                     </tr>
                 )})}
             </tbody>
