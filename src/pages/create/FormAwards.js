@@ -1,9 +1,11 @@
 import Select from 'react-select'
 import { useEffect, useState } from 'react'
+import { useFirestore } from '../../hooks/useFirestore'
 
 import './Create.css'
 
 export default function FormAwards({info, form}) {
+    const { updateDocument } = useFirestore('award-form')
     const [options, setOptions] = useState([])
     const [award, setAward] = useState('')
     const [formError, setFormError] = useState(null)
@@ -17,16 +19,32 @@ export default function FormAwards({info, form}) {
         }
     },[info])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         if (!award) {
             return setFormError('Please add an award')
         }
-        
+        await updateDocument('5l1hf9Mg33jRNyMHCZpd', {awards: [...form.awards, award]})
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+        }, 3000)
     }
 
-    const handleClick = (award) => {
-
+    const handleClick = async (awardSelected) => {
+        const awards = form.awards.filter((award) => {
+            return awardSelected !== award
+        })
+        let updates = {
+            awards: [
+                ...awards
+            ]
+        }
+        await updateDocument("5l1hf9Mg33jRNyMHCZpd", updates)
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+        }, 3000)
     }
 
 
