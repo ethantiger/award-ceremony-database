@@ -80,7 +80,7 @@ export default function Adjudicator({info, entries}) {
         }
         const updates = info.adjudicators.map((judge) => {
             if (judge === currentName) {
-                return newName
+                return newName.trim()
             } else {
                 return judge
             }
@@ -90,7 +90,7 @@ export default function Adjudicator({info, entries}) {
         // Edit Entries
         entries.forEach((doc) => {
             if (doc.name === currentName) {
-                updateEntry(doc.id, {name: newName})
+                updateEntry(doc.id, {name: newName.trim()})
             }
         })
         
