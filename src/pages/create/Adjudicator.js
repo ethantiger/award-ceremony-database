@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useFirestore } from '../../hooks/useFirestore'
 import Select from 'react-select'
-import { getDocs, collection } from "firebase/firestore"
-import { db } from '../../firebase/config'
 
 export default function Adjudicator({info, entries}) {
     const { updateDocument } = useFirestore('award-info')
@@ -89,13 +87,13 @@ export default function Adjudicator({info, entries}) {
         })
         await updateDocument('3RWf2J0uS8BX4MIsPU87', {adjudicators: updates})
 
-        // Edit entries
-        const colRef = collection(db, 'award-entry')
-        getDocs(colRef)
-            .then(snapshot => {
-                snapshot.docs.forEach(doc => console.log(doc.data()))
-            })
-        //await updateEntry(entries[0].id, {name: 'Vay Y.'})
+        // Edit Entries
+        entries.forEach((doc) => {
+            if (doc.name === currentName) {
+                updateEntry(doc.id, {name: newName})
+            }
+        })
+        
         
     }
 
@@ -113,6 +111,7 @@ export default function Adjudicator({info, entries}) {
                     </label>
                     <button type="submit" className="btn btn-warning mb-5">Add New Adjudicator</button>
                     <h4>Edit an adjudicator</h4>
+                    <p className="lead text-danger">This is a very expensive process and should not be used often</p>
                     <label>
                         <div className="input-group">
                             <span className="input-group-text">Change</span>

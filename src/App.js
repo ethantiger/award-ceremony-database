@@ -22,7 +22,7 @@ import './App.css';
 
 function App() {
   const { user, authIsReady } = useAuthContext()
-  const { documents: entries } = useCollection('award-entrys',null,['createdAt', 'desc'])
+  const { documents: entries } = useCollection('award-entry',null,['createdAt', 'desc'])
   const { document: difficulty } = useDocument('award-difficulty', 'hoxAT5NRUuol306P6CcV')
   const { document: info } = useDocument('award-info', '3RWf2J0uS8BX4MIsPU87')
 
