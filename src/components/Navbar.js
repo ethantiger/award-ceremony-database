@@ -43,7 +43,7 @@ export default function Navbar() {
                         <li className="nav-item ms-2 d-none d-md-inline">
                             <a href="#sidebar" className="btn btn-dark text-light" data-bs-toggle="offcanvas" role="button">Create <i className="bi bi-plus-circle-fill"></i></a>
                         </li>
-                        <li className="nav-item ms-2 d-none d-md-inline">
+                        <li className="nav-item ms-md-2">
                             <button className="btn btn-danger text-light" onClick={() => logout()}>Logout</button>
                         </li>
                         </>
