@@ -22,7 +22,7 @@ import './App.css';
 
 function App() {
   const { user, authIsReady } = useAuthContext()
-  const { documents: entries } = useCollection('award-entry',null,['createdAt', 'desc'])
+  const { documents: entries } = useCollection('award-entrys',null,['createdAt', 'desc'])
   const { document: difficulty } = useDocument('award-difficulty', 'hoxAT5NRUuol306P6CcV')
   const { document: info } = useDocument('award-info', '3RWf2J0uS8BX4MIsPU87')
 
@@ -37,7 +37,7 @@ function App() {
             <Route path="/awards-judged" element={<AwardsJudged entries={entries} info={info}/>} />
             <Route path="/difficulty" element={<Difficulty info={info} entries={entries}/>} />
             <Route path="/create/entry" element={user ? <Entry info={info} diff={difficulty}/> : <Navigate to="/" />} />
-            <Route path="/create/adjudicator" element={user ? <Adjudicator info={info}/> : <Navigate to="/" />} />
+            <Route path="/create/adjudicator" element={user ? <Adjudicator info={info} entries={entries}/> : <Navigate to="/" />} />
             <Route path="/create/award" element={user ? <Award info={info} diff={difficulty}/> : <Navigate to="/" />} />
             <Route path="/create/year" element={user ? <Year info={info}/> : <Navigate to="/" />} />
             <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />

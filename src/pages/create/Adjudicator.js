@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react"
 import { useFirestore } from '../../hooks/useFirestore'
+import Select from 'react-select'
+import { getDocs, collection } from "firebase/firestore"
+import { db } from '../../firebase/config'
 
-export default function Adjudicator({info}) {
+export default function Adjudicator({info, entries}) {
     const { updateDocument } = useFirestore('award-info')
+    const { updateDocument: updateEntry } = useFirestore('award-entry')
     const [name, setName] = useState("")
+    const [currentName, setCurrentName] = useState('')
+    const [newName, setNewName] = useState("")
     const [success, setSuccess] = useState(false)
     const [formError, setFormError] = useState(null)
     const [allNames, setAllNames] = useState([])
+    const [options, setOptions] = useState([])
 
     useEffect(() => {
         if (info) {
             setAllNames(info.adjudicators)
+            setOptions(info.adjudicators.map((judge) => {
+                return {value: judge, label: judge}
+            }))
         }
     },[info])
 
@@ -58,18 +68,73 @@ export default function Adjudicator({info}) {
         }, 3000)
     }
 
+    const handleChange = async () => {
+        setFormError(null)
+        // Edit award-info
+        if (!currentName) {
+            return setFormError('Please select a name')
+        }
+        if (!newName) {
+            return setFormError('Please fill out a new name')
+        }
+        if (currentName === newName) {
+            return setFormError('Current name cannot be the same as new name')
+        }
+        const updates = info.adjudicators.map((judge) => {
+            if (judge === currentName) {
+                return newName
+            } else {
+                return judge
+            }
+        })
+        await updateDocument('3RWf2J0uS8BX4MIsPU87', {adjudicators: updates})
+
+        // Edit entries
+        const colRef = collection(db, 'award-entry')
+        getDocs(colRef)
+            .then(snapshot => {
+                snapshot.docs.forEach(doc => console.log(doc.data()))
+            })
+        //await updateEntry(entries[0].id, {name: 'Vay Y.'})
+        
+    }
+
   return (
     <div className="container-xxl">  
         <form className="mt-5" onSubmit={(e) => handleSubmit(e)}>
             <div className="row">
                 <div className="col-md-5">
+                    <h4>Create new adjudicator</h4>
                     <label className="form-label">
                         <div className="input-group">
                             <span className="input-group-text">Name</span>
                             <input className="form-control" type="text" onChange={(e) => setName(e.target.value)} value={name} />
                         </div>
                     </label>
-                    <button className="btn btn-warning mb-5">Add New Adjudicator</button>
+                    <button type="submit" className="btn btn-warning mb-5">Add New Adjudicator</button>
+                    <h4>Edit an adjudicator</h4>
+                    <label>
+                        <div className="input-group">
+                            <span className="input-group-text">Change</span>
+                            <Select
+                                styles={{
+                                    container: base => ({
+                                        ...base,
+                                        flex: 1
+                                      })
+                                }}
+                                onChange={(option) => setCurrentName(option.value)}
+                                options={options}
+                            />
+                        </div>
+                    </label>
+                    <label className="form-label">
+                        <div className="input-group">
+                            <span className="input-group-text">To</span>
+                            <input className="form-control" type="text" onChange={(e) => setNewName(e.target.value)} value={newName} />
+                        </div>
+                    </label>
+                    <button type="button" className="btn btn-warning mb-5" onClick={handleChange}>Confirm</button>
                     {formError && <p className="lead fw-bold text-center text-light rounded border bg-danger p-2">{formError}</p>}
                     {success && <p className="lead fw-bold text-center text-light rounded border bg-success p-2">Success</p>}
                 </div>

@@ -31,7 +31,7 @@ export const useCollection = (col, _q, _order) => {
              // update state
              setDocuments(results)
              setError(null)
-             console.log(results)
+             console.log('useCollection', results)
          }, (error) => {
              console.log(error)
              setError('could not fetch the data')
