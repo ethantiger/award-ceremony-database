@@ -30,6 +30,9 @@ export default function Navbar() {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/difficulty">Difficulty</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/choices">Form Choices</NavLink>
+                        </li>
                         {user && <li className="nav-item d-md-none">
                             <a href="#sidebar" className="nav-link" data-bs-toggle="offcanvas" role="button">Create <i className="bi bi-plus-circle-fill"></i></a>
                         </li>}

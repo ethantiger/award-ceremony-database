@@ -15,6 +15,7 @@ import Award from './pages/create/Award';
 import Year from './pages/create/Year';
 import Login from './pages/login/Login'
 import FormAwards from './pages/create/FormAwards';
+import FormChoices from './pages/FormChoices/FormChoices';
 
 // styles
 import './App.css';
@@ -38,6 +39,7 @@ function App() {
             <Route path="/database" element={<Database entries={entries} info={info}/>} />
             <Route path="/awards-judged" element={<AwardsJudged entries={entries} info={info}/>} />
             <Route path="/difficulty" element={<Difficulty info={info} entries={entries}/>} />
+            <Route path="/choices" element={<FormChoices form={form}/>} />
             <Route path="/create/entry" element={user ? <Entry info={info} diff={difficulty}/> : <Navigate to="/" />} />
             <Route path="/create/adjudicator" element={user ? <Adjudicator info={info} entries={entries}/> : <Navigate to="/" />} />
             <Route path="/create/award" element={user ? <Award info={info} diff={difficulty}/> : <Navigate to="/" />} />
