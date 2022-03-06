@@ -30,6 +30,9 @@ export default function Navbar() {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/difficulty">Difficulty</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/choices">Form Choices</NavLink>
+                        </li>
                         {user && <li className="nav-item d-md-none">
                             <a href="#sidebar" className="nav-link" data-bs-toggle="offcanvas" role="button">Create <i className="bi bi-plus-circle-fill"></i></a>
                         </li>}
@@ -60,6 +63,7 @@ export default function Navbar() {
             </div>
             <div className="offcanvas-body text-end">
                 <Link className="nav-link text-secondary fw-bold" to="/create/entry"><i className="bi bi-file-bar-graph-fill"></i> Database Entry</Link>
+                <Link className="nav-link text-secondary fw-bold" to="/create/form-award"><i className="bi bi-file-text-fill"></i> Awards Form</Link>
                 <Link className="nav-link text-secondary fw-bold" to="/create/adjudicator"><i className="bi bi-person-fill"></i> Adjudicator</Link>
                 <Link className="nav-link text-secondary fw-bold" to="/create/award"><i className="bi bi-award-fill"></i> Award</Link>
                 <Link className="nav-link text-secondary fw-bold" to="/create/year"><i className="bi bi-calendar-fill"></i> Year</Link>
