@@ -94,6 +94,10 @@ export default function Adjudicator({info, entries}) {
             }
         })
         
+        setSuccess(true)
+        setTimeout(() => {
+            setSuccess(false)
+        }, 3000)
         
     }
 

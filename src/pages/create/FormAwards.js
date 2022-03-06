@@ -24,7 +24,10 @@ export default function FormAwards({info, form}) {
         if (!award) {
             return setFormError('Please add an award')
         }
-        await updateDocument('5l1hf9Mg33jRNyMHCZpd', {awards: [...form.awards, award]})
+        if (form.awards.includes(award.trim())) {
+            return setFormError('Award already exists')
+        }
+        await updateDocument('5l1hf9Mg33jRNyMHCZpd', {awards: [...form.awards, award.trim()]})
         setSuccess(true)
         setTimeout(() => {
             setSuccess(false)

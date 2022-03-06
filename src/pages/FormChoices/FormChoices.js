@@ -13,7 +13,7 @@ export default function FormChoices({form}) {
   return (
     <div className="container-xxl">
         <div className="row mt-5">
-            <p className="lead">Access the form here: </p>
+            <p className="lead">Access the form here: <a href="https://award-form.web.app/">Awards Form Page</a></p>
         </div>
         <table className="table mt-2">
             <thead>
