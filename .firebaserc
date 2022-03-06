@@ -1,14 +1,5 @@
 {
   "projects": {
     "default": "awards-database-51290"
-  },
-  "targets": {
-    "awards-database-51290": {
-      "hosting": {
-        "form": [
-          "award-form"
-        ]
-      }
-    }
   }
 }
